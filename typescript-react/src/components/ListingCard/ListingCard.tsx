@@ -1,6 +1,8 @@
+import React from 'react';
+
 import styles from './listing-card.module.scss';
 
-const ListingCard = () => {
+const ListingCard: React.FC = () => {
   return (
     <article className={styles['listing-card']}>
       <span className={styles['listing-card__price']}>320 000 &euro;</span>
