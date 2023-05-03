@@ -2,32 +2,40 @@ import React from 'react';
 
 import styles from './listing-card.module.scss';
 
-const ListingCard: React.FC = () => {
+import { ListingCardProps } from '@/types/api';
+import { dateConverter, priceConverter } from '@/utils/mappers';
+
+const ListingCard: React.FC<ListingCardProps> = ({ ...listings }) => {
   return (
     <article className={styles['listing-card']}>
-      <span className={styles['listing-card__price']}>320 000 &euro;</span>
+      <span className={styles['listing-card__price']}>
+        {priceConverter(listings.latest_price_eur)}
+      </span>
       <ul className={styles['listing-card__properties']}>
         <li className={styles['listing-card__properties-item']}>Studio</li>
         <li className={styles['listing-card__properties-item']}>
-          74m<sup>2</sup>
+          {`${listings.surface_area_m2}m`}
+          <sup>2</sup>
         </li>
-        <li className={styles['listing-card__properties-item']}>3 rooms</li>
+        <li
+          className={styles['listing-card__properties-item']}
+        >{`${listings.rooms_count} rooms`}</li>
       </ul>
       <section className={styles['listing-card__address']}>
-        <address>48, boulevard des capucins, 10294, Paris</address>
+        <address>{`${listings.postal_address.street_address}, ${listings.postal_address.postal_code}, ${listings.postal_address.city}`}</address>
       </section>
       <section className={styles['listing-card__description']}>
         <h3>Property description: </h3>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-          commodo, arcu eu varius dapibus, lacus velit posuere tellus, nec
-          convallis sem velit ut leo. Maecenas maximus volutpat felis.
+          {listings.description.length > 0
+            ? listings.description.length
+            : 'No description available'}
         </p>
       </section>
       <div className={styles['listing-card__footer']}>
         <p className={styles['listing-card__reference']}>
-          Ref: 123456 <br />
-          Last update: 2021/12/31
+          {`Ref: ${listings.id}`} <br />
+          {`Last update: ${dateConverter(listings.updated_date)}`}
         </p>
         <a href="/" className={styles['listing-card__link']}>
           See history &rarr;

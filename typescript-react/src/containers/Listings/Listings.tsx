@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import styles from './listings.module.scss';
 
 import { ListingCard, ListingForm } from '@/components';
@@ -8,10 +6,6 @@ import { ListingCardProps } from '@/types/api';
 
 function Listings() {
   const { listings, isError, isLoading } = useListings();
-
-  useEffect(() => {
-    console.log('LISTINGS', listings);
-  }, [listings]);
 
   return (
     <main className={styles['listings']}>
@@ -24,7 +18,11 @@ function Listings() {
         <section className={styles['listings__section']}>
           <h2 className={styles['listings__sub-title']}>Listings</h2>
           {isLoading && <div>Loading...</div>}
-          {!isLoading && !isError && <div>Listings...</div>}
+          {!isLoading &&
+            !isError &&
+            listings.map((el: ListingCardProps) => {
+              return <ListingCard key={el.id} {...el} />;
+            })}
           {/* // <ListingCard /> */}
           {isError && <div>An error occured fetching data...</div>}
         </section>
