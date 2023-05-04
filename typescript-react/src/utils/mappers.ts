@@ -11,7 +11,7 @@ export const dateConverter = (date: string): string => {
   const newDate = new Date(date);
   const day = newDate.getDate();
   const year = newDate.getFullYear();
-  const month = newDate.getMonth();
+  const month = newDate.getMonth() + 1;
 
   return `${year}/${month}/${day}`;
 };

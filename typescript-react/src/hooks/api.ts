@@ -13,7 +13,7 @@ export const useListings = () => {
   };
 };
 
-export const usePriceHistory = (id: number) => {
+export const usePriceHistory = (id: string) => {
   const { data, error, isLoading } = useSWR(
     () => API.PRICE_HISTORY(id),
     fetcher,

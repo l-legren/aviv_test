@@ -18,7 +18,7 @@ const PricesHistory = () => {
     priceHistory: PriceHistoryCardProps[];
     isError: boolean;
     isLoading: boolean;
-  } = usePriceHistory(Number(listingId));
+  } = usePriceHistory(listingId);
 
   return (
     <div className={styles['container']}>

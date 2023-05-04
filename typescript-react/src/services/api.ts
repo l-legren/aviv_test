@@ -3,5 +3,5 @@ const apiEndpoint = 'http://localhost:8080';
 
 export const API = {
   LISTINGS: () => `${apiEndpoint}/listings`,
-  PRICE_HISTORY: (id: number) => `${apiEndpoint}/listings/${id}/prices`,
+  PRICE_HISTORY: (id: string) => `${apiEndpoint}/listings/${id}/prices`,
 };
