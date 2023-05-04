@@ -37,7 +37,10 @@ const ListingCard: React.FC<ListingCardProps> = ({ ...listings }) => {
           {`Ref: ${listings.id}`} <br />
           {`Last update: ${dateConverter(listings.updated_date)}`}
         </p>
-        <a href="/" className={styles['listing-card__link']}>
+        <a
+          href={`/${listings.id}/prices`}
+          className={styles['listing-card__link']}
+        >
           See history &rarr;
         </a>
       </div>

@@ -5,7 +5,12 @@ import { useListings } from '@/hooks/api';
 import { ListingCardProps } from '@/types/api';
 
 function Listings() {
-  const { listings, isError, isLoading } = useListings();
+  const {
+    listings,
+    isError,
+    isLoading,
+  }: { listings: ListingCardProps[]; isError: boolean; isLoading: boolean } =
+    useListings();
 
   return (
     <main className={styles['listings']}>
@@ -23,7 +28,6 @@ function Listings() {
             listings.map((el: ListingCardProps) => {
               return <ListingCard key={el.id} {...el} />;
             })}
-          {/* // <ListingCard /> */}
           {isError && <div>An error occured fetching data...</div>}
         </section>
       </div>

@@ -1,6 +1,15 @@
+import { useParams } from 'react-router-dom';
+
 import styles from './price-history-card.module.scss';
 
+import { usePriceHistory } from '@/hooks/api';
+
 const PriceHistoryCard = () => {
+  const { listingId } = useParams();
+  const { priceHistory, isError, isLoading } = usePriceHistory(
+    Number(listingId),
+  );
+
   return (
     <div className={styles['container']}>
       <table className={styles['price-card']}>
