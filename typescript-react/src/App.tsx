@@ -1,7 +1,8 @@
 import Listings from '@containers/Listings/Listings';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { Header, PriceHistoryCard } from './components';
+import PricesHistory from './containers/PricesHistory/PricesHistory';
+import { Header } from './components';
 
 const App = () => (
   <>
@@ -9,7 +10,7 @@ const App = () => (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Listings />} />
-        <Route path="/:listingId/prices" element={<PriceHistoryCard />} />
+        <Route path="/:listingId/prices" element={<PricesHistory />} />
       </Routes>
     </BrowserRouter>
   </>

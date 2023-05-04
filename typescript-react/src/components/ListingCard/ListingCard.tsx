@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './listing-card.module.scss';
 
-import { ListingCardProps } from '@/types/api';
+import { ListingCardProps } from '@/containers/Listings/Listings';
 import { dateConverter, priceConverter } from '@/utils/mappers';
 
 const ListingCard: React.FC<ListingCardProps> = ({ ...listings }) => {

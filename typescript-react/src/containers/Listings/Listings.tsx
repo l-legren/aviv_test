@@ -2,7 +2,9 @@ import styles from './listings.module.scss';
 
 import { ListingCard, ListingForm } from '@/components';
 import { useListings } from '@/hooks/api';
-import { ListingCardProps } from '@/types/api';
+import { ApiResponseListingCard } from '@/types/api';
+
+export interface ListingCardProps extends ApiResponseListingCard {}
 
 function Listings() {
   const {
@@ -22,13 +24,19 @@ function Listings() {
         </aside>
         <section className={styles['listings__section']}>
           <h2 className={styles['listings__sub-title']}>Listings</h2>
+          <ul className={styles['listings__list']}>
+            {!isLoading &&
+              !isError &&
+              listings.map((el: ListingCardProps) => {
+                return (
+                  <li key={el.id}>
+                    <ListingCard {...el} />
+                  </li>
+                );
+              })}
+          </ul>
           {isLoading && <div>Loading...</div>}
-          {!isLoading &&
-            !isError &&
-            listings.map((el: ListingCardProps) => {
-              return <ListingCard key={el.id} {...el} />;
-            })}
-          {isError && <div>An error occured fetching data...</div>}
+          {isError && <div>An error occured while fetching data...</div>}
         </section>
       </div>
     </main>

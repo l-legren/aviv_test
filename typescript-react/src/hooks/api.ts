@@ -15,7 +15,7 @@ export const useListings = () => {
 
 export const usePriceHistory = (id: number) => {
   const { data, error, isLoading } = useSWR(
-    () => (id ? API.PRICE_HISTORY(id) : null),
+    () => API.PRICE_HISTORY(id),
     fetcher,
   );
 

@@ -2,14 +2,13 @@ import { useParams } from 'react-router-dom';
 
 import styles from './price-history-card.module.scss';
 
-import { usePriceHistory } from '@/hooks/api';
+import { PriceHistoryCardProps } from '@/containers/PricesHistory/PricesHistory';
+import { dateConverter, priceConverter } from '@/utils/mappers';
 
-const PriceHistoryCard = () => {
-  const { listingId } = useParams();
-  const { priceHistory, isError, isLoading } = usePriceHistory(
-    Number(listingId),
-  );
-
+const PriceHistoryCard = ({
+  price_eur,
+  created_date,
+}: PriceHistoryCardProps) => {
   return (
     <div className={styles['container']}>
       <table className={styles['price-card']}>
@@ -19,8 +18,8 @@ const PriceHistoryCard = () => {
             <th scope="col">Price (eur)</th>
           </tr>
           <tr>
-            <td>01/01/2022</td>
-            <td>500 000</td>
+            <td>{dateConverter(created_date)}</td>
+            <td>{priceConverter(price_eur)}</td>
           </tr>
         </tbody>
       </table>

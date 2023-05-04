@@ -20,7 +20,7 @@ export interface PostalAddressProps {
   street_address: string;
 }
 
-export interface ListingCardProps {
+export interface ApiResponseListingCard {
   bedrooms_count: number;
   building_type: string;
   contact_phone_number: string;
@@ -33,6 +33,11 @@ export interface ListingCardProps {
   rooms_count: number;
   surface_area_m2: number;
   updated_date: string;
+}
+
+export interface ApiResponsePriceHistory {
+  created_date: string;
+  price_eur: number;
 }
 
 /*=====  End Listings Types  ======*/
