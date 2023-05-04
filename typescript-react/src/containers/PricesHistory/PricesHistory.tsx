@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import PricesHistoryCard from '@components/PriceHistoryCard';
 import { useParams } from 'react-router-dom';
 
@@ -20,10 +19,6 @@ const PricesHistory = () => {
     isError: boolean;
     isLoading: boolean;
   } = usePriceHistory(Number(listingId));
-
-  useEffect(() => {
-    console.log('listingsId', listingId);
-  }, [listingId]);
 
   return (
     <div className={styles['container']}>

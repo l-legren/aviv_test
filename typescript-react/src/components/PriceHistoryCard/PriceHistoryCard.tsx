@@ -1,5 +1,3 @@
-import { useParams } from 'react-router-dom';
-
 import styles from './price-history-card.module.scss';
 
 import { PriceHistoryCardProps } from '@/containers/PricesHistory/PricesHistory';
