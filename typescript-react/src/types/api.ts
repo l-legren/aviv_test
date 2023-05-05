@@ -22,7 +22,7 @@ export interface PostalAddressProps {
 
 export interface ApiResponseListingCard {
   bedrooms_count: number;
-  building_type: string;
+  building_type: BuildingType;
   contact_phone_number: string;
   created_date: string;
   description: string;
@@ -38,6 +38,18 @@ export interface ApiResponseListingCard {
 export interface ApiResponsePriceHistory {
   created_date: string;
   price_eur: number;
+}
+
+export type NewListingEntryPostRequest = Omit<
+  ApiResponseListingCard,
+  'id' | 'updated_date'
+>;
+
+/* eslint-disable no-unused-vars */
+export enum BuildingType {
+  Studio = 'STUDIO',
+  Apartment = 'APARTMENT',
+  House = 'HOUSE',
 }
 
 /*=====  End Listings Types  ======*/

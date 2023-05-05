@@ -2,6 +2,7 @@
 const apiEndpoint = 'http://localhost:8080';
 
 export const API = {
-  LISTINGS: () => `${apiEndpoint}/listings`,
+  LISTINGS: `${apiEndpoint}/listings`,
   PRICE_HISTORY: (id: string) => `${apiEndpoint}/listings/${id}/prices`,
+  NEW_ENTRY: `${apiEndpoint}/listings`,
 };
