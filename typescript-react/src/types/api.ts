@@ -52,4 +52,10 @@ export enum BuildingType {
   House = 'HOUSE',
 }
 
+export enum CountryCode {
+  Belgium = 'BE',
+  Germany = 'DE',
+  France = 'FR',
+}
+
 /*=====  End Listings Types  ======*/

@@ -4,7 +4,11 @@ import { useForm } from 'react-hook-form';
 import styles from './listing-form.module.scss';
 
 import { API } from '@/services/api';
-import { BuildingType, NewListingEntryPostRequest } from '@/types/api';
+import {
+  BuildingType,
+  CountryCode,
+  NewListingEntryPostRequest,
+} from '@/types/api';
 
 const ListingForm = () => {
   const {
@@ -14,23 +18,20 @@ const ListingForm = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      bedrooms_count: 1,
-      building_type: BuildingType.Studio,
-      contact_phone_number: '',
-      created_date: '',
-      description: '',
-      id: 0,
-      latest_price_eur: 0,
       name: '',
       postal_address: {
         city: '',
-        country: '',
+        country: CountryCode.Germany,
         postal_code: '',
         street_address: '',
       },
+      description: '',
+      building_type: BuildingType.Studio,
+      latest_price_eur: 0,
+      surface_area_m2: 0,
       rooms_count: 1,
-      surface_area_m2: 1,
-      updated_date: '',
+      bedrooms_count: 0,
+      contact_phone_number: '',
     } as NewListingEntryPostRequest,
     mode: 'onSubmit',
   });
@@ -66,6 +67,112 @@ const ListingForm = () => {
     <form className={styles['listing-form']} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles['listing-form__card']}>
         <div className={styles['listing-form__input-group']}>
+          <label htmlFor="name">Name:</label>
+          <input
+            type="text"
+            className={styles['listing-form__input-text']}
+            {...register('name', {
+              required: true,
+              minLength: {
+                value: 1,
+                message: 'Please enter a longer name',
+              },
+            })}
+          />
+          {errors.name && (
+            <span style={{ color: 'red' }}>
+              {errors.name.message as string}
+            </span>
+          )}
+        </div>
+        <div className={styles['listing-form__input-group']}>
+          <label htmlFor="description">Description:</label>
+          <input
+            type="text"
+            className={styles['listing-form__input-text']}
+            {...register('description', {
+              required: true,
+              minLength: {
+                value: 10,
+                message: 'Please consider a longer description',
+              },
+            })}
+          />
+          {errors.description && (
+            <span style={{ color: 'red' }}>
+              {errors.description.message as string}
+            </span>
+          )}
+        </div>
+        <div className={styles['listing-form__input-group']}>
+          <label htmlFor="building_type">Building type:</label>
+          <select
+            className={styles['listing-form__select']}
+            {...register('building_type', { required: true })}
+          >
+            <option value={BuildingType.Studio}>Studio</option>
+            <option value={BuildingType.Apartment}>Apartment</option>
+            <option value={BuildingType.House}>House</option>
+          </select>
+        </div>
+        <div className={styles['listing-form__input-group']}>
+          <label htmlFor="bedrooms_count">Number of rooms:</label>
+          <input
+            type="number"
+            className={styles['listing-form__input-text']}
+            {...register('rooms_count', {
+              required: true,
+              min: {
+                value: 1,
+                message: 'Please enter a valid number of rooms',
+              },
+            })}
+          />
+          {errors.rooms_count && (
+            <span style={{ color: 'red' }}>
+              {errors.rooms_count.message as string}
+            </span>
+          )}
+        </div>
+        <div className={styles['listing-form__input-group']}>
+          <label htmlFor="bedrooms_count">Number of bedrooms:</label>
+          <input
+            type="number"
+            className={styles['listing-form__input-text']}
+            {...register('bedrooms_count', {
+              required: true,
+              min: {
+                value: 0,
+                message: 'Please enter a valid number of bedrooms',
+              },
+            })}
+          />
+          {errors.bedrooms_count && (
+            <span style={{ color: 'red' }}>
+              {errors.bedrooms_count.message as string}
+            </span>
+          )}
+        </div>
+        <div className={styles['listing-form__input-group']}>
+          <label htmlFor="contact_phone_number">Phone number:</label>
+          <input
+            type="phone"
+            className={styles['listing-form__input-text']}
+            {...register('contact_phone_number', {
+              required: true,
+              pattern: {
+                value: /^\+[1-9]\d{1,14}$/,
+                message: "The input doesn't match a phone number",
+              },
+            })}
+          />
+          {errors.contact_phone_number && (
+            <span style={{ color: 'red' }}>
+              {errors.contact_phone_number.message as string}
+            </span>
+          )}
+        </div>
+        <div className={styles['listing-form__input-group']}>
           <label htmlFor="latest_price_eur">Price:</label>
           <input
             type="number"
@@ -73,8 +180,8 @@ const ListingForm = () => {
             {...register('latest_price_eur', {
               required: true,
               min: {
-                value: 1,
-                message: 'Please enter a valid number',
+                value: 0,
+                message: 'Please enter a valid price',
               },
             })}
           />
@@ -92,8 +199,8 @@ const ListingForm = () => {
             {...register('surface_area_m2', {
               required: true,
               min: {
-                value: 1,
-                message: 'Please enter a valid number',
+                value: 0,
+                message: 'Please enter a valid area',
               },
             })}
           />
@@ -104,7 +211,7 @@ const ListingForm = () => {
           )}
         </div>
         <div className={styles['listing-form__input-group']}>
-          <label htmlFor="street_address">Street address:</label>
+          <label htmlFor="postal_address.street_address">Street address:</label>
           <input
             type="text"
             className={styles['listing-form__input-text']}
@@ -123,14 +230,52 @@ const ListingForm = () => {
           )}
         </div>
         <div className={styles['listing-form__input-group']}>
-          <label htmlFor="building_type">Building type:</label>
+          <label htmlFor="postal_address.postal_code">Postal Code:</label>
+          <input
+            type="text"
+            className={styles['listing-form__input-text']}
+            {...register('postal_address.postal_code', {
+              required: true,
+              minLength: {
+                value: 1,
+                message: 'Please enter a valid postal code',
+              },
+            })}
+          />
+          {errors.postal_address?.postal_code && (
+            <span style={{ color: 'red' }}>
+              {errors.postal_address?.postal_code.message as string}
+            </span>
+          )}
+        </div>
+        <div className={styles['listing-form__input-group']}>
+          <label htmlFor="postal_address.city">City:</label>
+          <input
+            type="text"
+            className={styles['listing-form__input-text']}
+            {...register('postal_address.city', {
+              required: true,
+              minLength: {
+                value: 1,
+                message: 'Please enter a valid city',
+              },
+            })}
+          />
+          {errors.postal_address?.city && (
+            <span style={{ color: 'red' }}>
+              {errors.postal_address?.city.message as string}
+            </span>
+          )}
+        </div>
+        <div className={styles['listing-form__input-group']}>
+          <label htmlFor="postal_address.country">Country:</label>
           <select
             className={styles['listing-form__select']}
-            {...register('building_type', { required: true })}
+            {...register('postal_address.country', { required: true })}
           >
-            <option value={BuildingType.Studio}>Studio</option>
-            <option value={BuildingType.Apartment}>Apartment</option>
-            <option value={BuildingType.House}>House</option>
+            <option value={CountryCode.Belgium}>Belgium</option>
+            <option value={CountryCode.Germany}>Germany</option>
+            <option value={CountryCode.France}>France</option>
           </select>
         </div>
         <button
