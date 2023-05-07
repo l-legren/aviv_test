@@ -16,8 +16,8 @@ const PriceHistoryCard = ({
             <th scope="col">Price (eur)</th>
           </tr>
           <tr>
-            <td>{dateConverter(created_date)}</td>
-            <td>{priceConverter(price_eur)}</td>
+            <td data-testid={'date'}>{dateConverter(created_date)}</td>
+            <td data-testid={'price'}>{priceConverter(price_eur)}</td>
           </tr>
         </tbody>
       </table>
