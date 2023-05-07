@@ -28,8 +28,8 @@ const PricesHistory = () => {
       <ul className={styles['list']}>
         {!isLoading &&
           !isError &&
-          priceHistory?.map((el: PriceHistoryCardProps) => (
-            <li key={listingId}>
+          priceHistory?.map((el: PriceHistoryCardProps, idx) => (
+            <li key={idx}>
               <PricesHistoryCard {...el} />
             </li>
           ))}
