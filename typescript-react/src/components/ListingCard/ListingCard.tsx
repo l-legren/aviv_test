@@ -24,7 +24,10 @@ const ListingCard: React.FC<ListingCardProps> = ({ ...listings }) => {
       <section className={styles['listing-card__address']}>
         <address>{`${listings.postal_address.street_address}, ${listings.postal_address.postal_code}, ${listings.postal_address.city}`}</address>
       </section>
-      <section className={styles['listing-card__description']}>
+      <section
+        data-testid={'mocked-description'}
+        className={styles['listing-card__description']}
+      >
         <h3>Property description: </h3>
         <p>
           {listings.description.length > 0

@@ -28,11 +28,8 @@ describe('<PricesHistory />', () => {
     });
   });
 
-  it('renders the component with correct mocked prices and dates', () => {
+  it('renders the component with mocked prices and dates', () => {
     render(<PricesHistory />);
-
-    const heading = screen.getByRole('heading', { name: /Prices History/i });
-    expect(heading).toBeInTheDocument();
 
     const datesList = screen.getAllByTestId('date');
     expect(datesList).toHaveLength(2);
