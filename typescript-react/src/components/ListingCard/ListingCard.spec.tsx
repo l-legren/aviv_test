@@ -1,10 +1,12 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import ListingCard from './ListingCard';
 
+import { BuildingType } from '@/types/api';
+
 const mockedEntry = {
   bedrooms_count: 2,
-  building_type: 'STUDIO',
+  building_type: BuildingType.House,
   contact_phone_number: '+219779210354',
   created_date: '2023-01-17T14:19:22.808738',
   description: '',
@@ -25,5 +27,16 @@ const mockedEntry = {
 describe('<ListingCard /> test suite', () => {
   it('Should render the <ListingCard /> component', () => {
     render(<ListingCard {...mockedEntry} />);
+  });
+
+  it('Should have a clickable element to the history', () => {
+    render(<ListingCard {...mockedEntry} />);
+    const linkElement = screen.getByRole('link');
+    expect(linkElement).toHaveAttribute('href', '/1/prices');
+  });
+
+  it('Should display that description is not available', () => {
+    render(<ListingCard {...mockedEntry} />);
+    expect(screen.getByText('No description available')).toBeInTheDocument();
   });
 });
